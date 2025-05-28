@@ -1,0 +1,25 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Upload Artwork</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f0f0f0; padding: 2rem; }
+        form { background: white; padding: 2rem; max-width: 500px; margin: auto; border-radius: 8px; }
+        label, input, button { display: block; width: 100%; margin-bottom: 1rem; }
+        input, button { padding: 0.5rem; border-radius: 4px; border: 1px solid #ccc; }
+        button { background-color: #28a745; color: white; border: none; cursor: pointer; }
+        button:hover { background-color: #218838; }
+    </style>
+</head>
+<body>
+    <h2 style="text-align: center;">Upload New Artwork</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Upload</button>
+    </form>
+</body>
+</html>

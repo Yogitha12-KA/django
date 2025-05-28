@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% block content %}
+<h2>{{ artwork.title }}</h2>
+<img src="{{ artwork.image.url }}" class="img-fluid rounded mb-3" alt="{{ artwork.title }}">
+<p>{{ artwork.description }}</p>
+<p>Artist: <a href="{% url 'profile' artwork.artist.username %}">{{ artwork.artist.username }}</a></p>
+
+<form method="post" class="mb-3">
+    {% csrf_token %}
+    <button type="submit" name="like" class="btn btn-outline-primary">Like</button>
+</form>
+
+<h4>Comments</h4>
+{% for comment in artwork.comments.all %}
+<div class="border p-2 mb-2 rounded">
+    <strong>{{ comment.user.username }}:</strong> {{ comment.content }}
+</div>
+{% endfor %}
+
+<form method="post" class="mt-4">
+    {% csrf_token %}
+    <div class="mb-3">
+        <textarea name="content" class="form-control" rows="3" placeholder="Write your comment..."></textarea>
+    </div>
+    <button type="submit" name="comment" class="btn btn-success">Comment</button>
+</form>
+{% endblock %}

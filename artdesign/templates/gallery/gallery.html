@@ -1,0 +1,24 @@
+
+
+{% extends 'base.html' %}
+{% block content %}
+<h2 class="mb-4">Art Gallery</h2>
+<div class="row">
+    {% for artwork in artworks %}
+    <div class="col-md-4 mb-4">
+        <div class="card h-100">
+            <img src="{{ artwork.image.url }}" class="card-img-top" alt="{{ artwork.title }}">
+            <div class="card-body">
+                <h5 class="card-title">{{ artwork.title }}</h5>
+                <p class="card-text">{{ artwork.description }}</p>
+                <a href="{% url 'profile' artwork.artist.username %}" class="btn btn-outline-secondary btn-sm">
+                    {{ artwork.artist.username }}
+                </a>
+                <span class="badge bg-primary float-end">{{ artwork.total_likes }} likes</span>
+                <a href="{% url 'artwork_detail' artwork.id %}" class="btn btn-sm btn-info mt-2 w-100">View</a>
+            </div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endblock %}

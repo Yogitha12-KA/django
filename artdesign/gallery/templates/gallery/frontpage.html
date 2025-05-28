@@ -1,0 +1,83 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Art & Design Platform</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+            margin: 0;
+            padding: 0;
+        }
+        header {
+            background-color: #333;
+            color: white;
+            padding: 1rem;
+            text-align: center;
+        }
+        main {
+            padding: 2rem;
+            text-align: center;
+        }
+        .button {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            margin-top: 1rem;
+            background-color: #007BFF;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+        .button:hover {
+            background-color: #0056b3;
+        }
+        .logout-button {
+            background-color: #dc3545;
+            border: none;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 8px;
+        }
+        
+        .logout-button:hover {
+            background-color: #c82333;
+        }
+
+        .logo {
+            height: 100px;
+        }
+        
+    </style>
+</head>
+<body>
+    <header>
+        {% load static %}
+        <img src="{% static 'images/ChatGPT Image May 8, 2025, 01_09_44 PM.png' %}" alt="Logo" class="logo">
+        <h1>Welcome to ArtCraft Academy</h1>
+        
+    </header>
+    
+    <main>
+        <h2>Discover and Share Art</h2>
+        <p>Explore our collection of artworks, follow your favorite artists, and share your own creations.</p>
+       
+        {% if user.is_authenticated %}
+            <a class="button" href="{% url 'gallery:gallery' %}">Visit Gallery</a>
+            <form method="post" action="{% url 'gallery:logout' %}" style="margin-top: 1rem;">
+                {% csrf_token %}
+                <button class="button logout-button" type="submit">Logout</button>
+            </form>
+        {% else %}
+            <a class="button" href="{% url 'gallery:login' %}?next={% url 'gallery:gallery' %}">Login to Visit Gallery</a><br>
+            <a class="button" style="margin-top: 0.5rem; background-color: #28a745;" href="{% url 'gallery:signup' %}">Sign Up</a>
+        {% endif %}
+    </main>
+    
+</body>
+</html>

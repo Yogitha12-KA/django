@@ -1,0 +1,24 @@
+{% extends 'art/base.html' %}
+{% block content %}
+<h2>Comments for "{{ artwork.title }}"</h2>
+<img src="{{ artwork.image.url }}" width="300" alt="{{ artwork.title }}">
+<p>{{ artwork.description }}</p>
+<p>By <a href="{% url 'profile' artwork.artist.username %}">{{ artwork.artist.username }}</a></p>
+
+<hr>
+<h3>Add a Comment</h3>
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post Comment</button>
+</form>
+
+<h3>All Comments</h3>
+<ul>
+    {% for comment in artwork.comments.all %}
+        <li><strong>{{ comment.user.username }}</strong>: {{ comment.text }}</li>
+    {% empty %}
+        <li>No comments yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
